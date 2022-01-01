@@ -1,6 +1,6 @@
 # DCPCSE: Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings
 
-This repository contains the code for our paper Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings. Our code are modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent work.
+This repository contains the code for our paper Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings. Our code are modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
 
 ## Quick Links
 
