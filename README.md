@@ -53,7 +53,7 @@ bash download_dataset.sh
 Then come back to the root directory, you can evaluate any `transformers`-based pre-trained models using our evaluation code. For example,
 ```bash
 python evaluation.py \
-    --model_name_or_path result/dcpcse-bert-base-uncased \
+    --model_name_or_path result/my-unsup-dcpcse-bert-base-uncased \
     --pooler cls \
     --task_set sts \
     --mode test
