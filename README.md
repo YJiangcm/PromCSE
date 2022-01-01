@@ -12,7 +12,10 @@ This repository contains the code for our paper Deep Continuous Prompt for Contr
   - [Citation](#citation)
 
 ## Architecture
-![](figure/model architecture.png)
+Our proposed framework is depicted in the below figure. We add multi-layer trainable dense vectors as continuous prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). we train our whole architecture based on the idea of constractive learning, while keeping all parameters of the pre-trained model frozen (the blue blocks). The [CLS] token embedding of the last layer is selected as the sentence representation.
+
+<img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/model%20architecture.png" width="600" height="300">
+
 
 ## Train DCPCSE
 In the following section, we describe how to train DCPCSE.
