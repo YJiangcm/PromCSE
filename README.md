@@ -12,7 +12,7 @@ This repository contains the code for our paper Deep Continuous Prompt for Contr
   - [Citation](#citation)
 
 ## Architecture
-
+![](figure/model architecture.png)
 
 ## Train DCPCSE
 In the following section, we describe how to train DCPCSE.
