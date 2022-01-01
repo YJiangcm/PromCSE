@@ -12,7 +12,7 @@ This repository contains the code for our paper Deep Continuous Prompt for Contr
   - [Citation](#citation)
 
 ## Architecture
-Our proposed framework is depicted in the below figure. We add multi-layer trainable dense vectors as continuous prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). we train our whole architecture based on the idea of constractive learning, while keeping all parameters of the pre-trained model frozen (the blue blocks). The [CLS] token embedding of the last layer is selected as the sentence representation.
+Our proposed framework is depicted in the below figure. We add multi-layer trainable dense vectors as continuous prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). Note that all parameters of the pre-trained model are frozen (the blue blocks), thus reducing the number of tunable parameters to around **0.1\%**. The [CLS] token embedding of the last layer is selected as the sentence representation.
 
 <img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/model%20architecture.png" width="600" height="300">
 
@@ -106,6 +106,9 @@ We provide example training scripts for both unsupervised and supervised DCPCSE.
 * `--do_mlm`: Whether to use the MLM auxiliary objective. If True:
   * `--mlm_weight`: Weight for the MLM objective.
   * `--mlm_probability`: Masking rate for the MLM objective.
+* `--pre_seq_len`: The length of deep continuous prompt.
+* `--prefix_projection`: Whether apply a two-layer MLP head over the prompt embeddings.
+* `--prefix_hidden_size`: The hidden size of the MLP projection head if prefix_projection is used.
 
 All the other arguments are standard Huggingface's `transformers` training arguments. Some of the often-used arguments are: `--output_dir`, `--learning_rate`, `--per_device_train_batch_size`. In our example scripts, we also set to evaluate the model on the STS-B development set (need to download the dataset following the [evaluation](#evaluation) section) and save the best checkpoint.
 
