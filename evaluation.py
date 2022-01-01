@@ -7,7 +7,7 @@ from prettytable import PrettyTable
 import torch
 import transformers
 from transformers import AutoConfig, AutoTokenizer
-from simcse.models import RobertaForCL, BertForCL
+from dcpcse.models import RobertaForCL, BertForCL
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s')
