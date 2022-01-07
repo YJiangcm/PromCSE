@@ -132,7 +132,7 @@ All our experiments are conducted on two Nvidia 3090 GPUs.
 | Learning rate  | 5e-3 | 5e-3 | 1e-2 | 5e-3 |
 | Prompt length | 12 | 12 | 10 | 10 |
 | do_mlm | False | False | False | False |
-| Epoch |10|5|5|5|
+| Epoch |10|5|10|10|
 | Valid steps | 125 | 125 | 125 | 125 |
 
 ## Citation
