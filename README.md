@@ -54,9 +54,10 @@ Then come back to the root directory, you can evaluate any `transformers`-based 
 ```bash
 python evaluation.py \
     --model_name_or_path result/my-unsup-dcpcse-bert-base-uncased \
-    --pooler cls \
+    --pooler_type cls_before_pooler \
     --task_set sts \
-    --mode test
+    --mode test \
+    --pre_seq_len 16
 ```
 which is expected to output the results in a tabular format:
 ```
