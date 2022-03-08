@@ -72,7 +72,7 @@ which is expected to output the results in a tabular format:
 Arguments for the evaluation script are as follows,
 
 * `--model_name_or_path`: The name or path of a `transformers`-based pre-trained checkpoint. 
-* `--pooler`: Pooling method. Now we support
+* `--pooler_type`: Pooling method. Now we support
     * `cls` (default): Use the representation of `[CLS]` token. A linear+activation layer is applied after the representation (it's in the standard BERT implementation). If you use **supervised DCPCSE**, you should use this option.
     * `cls_before_pooler`: Use the representation of `[CLS]` token without the extra linear+activation. If you use **unsupervised DCPCSE**, you should take this option.
     * `avg`: Average embeddings of the last layer. If you use checkpoints of SBERT/SRoBERTa ([paper](https://arxiv.org/abs/1908.10084)), you should use this option.
@@ -88,7 +88,7 @@ Arguments for the evaluation script are as follows,
     * `full`: Evaluate on both STS and transfer tasks.
     * `na`: Manually set tasks by `--tasks`.
 * `--tasks`: Specify which dataset(s) to evaluate on. Will be overridden if `--task_set` is not `na`. See the code for a full list of tasks.
-
+* `--pre_seq_len`: The length of prompt.
 ### Training
 
 **Data**
