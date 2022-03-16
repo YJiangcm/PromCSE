@@ -94,7 +94,7 @@ Arguments for the evaluation script are as follows,
     * `full`: Evaluate on both STS and transfer tasks.
     * `na`: Manually set tasks by `--tasks`.
 * `--tasks`: Specify which dataset(s) to evaluate on. Will be overridden if `--task_set` is not `na`. See the code for a full list of tasks.
-* `--pre_seq_len`: The length of prompt.
+* `--pre_seq_len`: The length of deep continuous prompt.
 ### Training
 
 **Data**
