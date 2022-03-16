@@ -2,6 +2,12 @@
 
 This repository contains the code for our paper [Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings](https://arxiv.org/abs/2203.06875). Our code are modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
 
+We release our best model checkpoint for STS tasks here:
+|          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
+|:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|  sup-DCPCSE-RoBERTa-large [download](https://drive.google.com/drive/folders/1OWqNgsPtzvsxmDDnOf0WaVuNkELEcatG?usp=sharing)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
+
+
 ## Quick Links
 
   - [Architecture](#architecture)
@@ -53,11 +59,11 @@ bash download_dataset.sh
 Then come back to the root directory, you can evaluate any `transformers`-based pre-trained models using our evaluation code. For example,
 ```bash
 python evaluation.py \
-    --model_name_or_path result/my-unsup-dcpcse-bert-base-uncased \
-    --pooler_type cls_before_pooler \
+    --model_name_or_path result/my-sup-dcpcse-roberta-large \
+    --pooler_type cls \
     --task_set sts \
     --mode test \
-    --pre_seq_len 16
+    --pre_seq_len 10
 ```
 which is expected to output the results in a tabular format:
 ```
@@ -65,7 +71,7 @@ which is expected to output the results in a tabular format:
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 | STS12 | STS13 | STS14 | STS15 | STS16 | STSBenchmark | SICKRelatedness |  Avg. |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
-| 73.03 | 85.18 | 76.70 | 84.19 | 79.69 |    80.62     |      70.00      | 78.49 |
+| 79.14 | 88.64 | 83.73 | 87.33 | 84.57 |    87.84     |      82.07      | 84.76 |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 ```
 
