@@ -147,7 +147,7 @@ All our experiments are conducted on two Nvidia 3090 GPUs.
 Please cite our paper by:
 
 ```bibtex
-@misc{jiang2022deep,
+@misc{jiang2022dcpcse,
       title={Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings}, 
       author={Yuxin Jiang and Wei Wang},
       year={2022},
