@@ -3,6 +3,9 @@
 This repository contains the code for our paper [Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings](https://arxiv.org/abs/2203.06875). Our code are modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
 
 We release our best model checkpoint for STS tasks here:
+
+<img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/leaderboard.png" width="750" height="350">
+
 |          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
 |:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |  sup-DCPCSE-RoBERTa-large [download](https://drive.google.com/drive/folders/1OWqNgsPtzvsxmDDnOf0WaVuNkELEcatG?usp=sharing)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
