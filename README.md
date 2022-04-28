@@ -1,5 +1,10 @@
 # DCPCSE: Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings
 
+[![SICK](https://img.shields.io/badge/Top1-SICK-orange)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sick)
+[![STS12](https://img.shields.io/badge/Top1-STS12-brightgreen)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sts12)
+[![STS13](https://img.shields.io/badge/Top1-STS13-red)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sts13)
+[![STS14](https://img.shields.io/badge/Top1-STS14-blue)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sts14)
+
 This repository contains the code for our paper [Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings](https://arxiv.org/abs/2203.06875). Our code are modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
 
 We release our best model checkpoint which acquires **Top 1** results on four STS tasks (view the ranking from [paperwithcode](https://paperswithcode.com/paper/deep-continuous-prompt-for-contrastive-1)):
