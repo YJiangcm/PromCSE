@@ -18,6 +18,7 @@ We release our best model checkpoint which acquires **Top 1** results on four ST
 
 ## Architecture
 <img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/model%20architecture.png" width="600" height="300">
+
 We add multi-layer trainable dense vectors as continuous prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). Note that all parameters of the pre-trained model are frozen (the blue blocks), thus reducing the number of tunable parameters to around **0.1\%**. The [CLS] token embedding of the last layer is selected as the sentence representation. The contrastive framework is the same as SimCSE.
 
 
