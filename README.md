@@ -15,6 +15,7 @@ We release our best model checkpoint which acquires **Top 1** results on four ST
 |:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |  sup-DCPCSE-RoBERTa-large [download](https://drive.google.com/drive/folders/1OWqNgsPtzvsxmDDnOf0WaVuNkELEcatG?usp=sharing)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
 
+If you have any questions, feel free to raise an issue.
 
 ## Architecture
 <img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/model%20architecture.png" width="600" height="300">
