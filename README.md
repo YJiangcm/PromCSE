@@ -39,7 +39,8 @@ pip install -r requirements.txt
 
 Following SimCSE, we use the same datasets to train our unsupervised models and supervised models. You can run `data/download_wiki.sh` and `data/download_nli.sh` to download the two datasets.
 
-**Training scripts**
+**Training scripts**  
+(The same as `run_unsup_example.sh`)
 ```bash
 python train.py \
     --model_name_or_path bert-base-uncased \
