@@ -16,6 +16,10 @@ import os
 import io
 import numpy as np
 import logging
+import csv
+import json
+import pandas as pd
+from tqdm import tqdm
 
 from scipy.stats import spearmanr, pearsonr
 
@@ -75,6 +79,37 @@ class STSEval(object):
                     for kk in range(enc2.shape[0]):
                         sys_score = self.similarity(enc1[kk], enc2[kk])
                         sys_scores.append(sys_score)
+                        
+            ###################################################################
+            # do bootstrap for cococxc dataset.
+            if self.datasets == ['test']:
+                model_prediction = pd.DataFrame({'gs_scores': gs_scores, 'sys_scores': sys_scores})
+                cxc_dcpcse = pd.concat([self.cxc_data, model_prediction[['sys_scores']]], axis=1)
+                
+                np.random.seed(123)
+                spearmanr_all = []
+                logging.debug('Start bootstrap\n')
+                for _ in tqdm(range(1000)):  #so B=1000
+                    pop = range(len(self.coco_test))
+                    sample = np.random.choice(pop, size=len(self.coco_test)//2) #so n=2500
+                    
+                    caption1 = []
+                    caption2 = []
+                    for i in sample:
+                        n_sent_pair = len(self.coco_test[i]['cxc_scores'])
+                        idx = np.random.choice(n_sent_pair, size=1)[0]
+                        caption1.append(self.coco_test[i]['cxc_scores'][idx][0])
+                        caption2.append(self.coco_test[i]['cxc_scores'][idx][1])
+                    idx_df = pd.DataFrame({'caption1':caption1, 'caption2': caption2})
+                    
+                    evaluation = pd.merge(idx_df, cxc_dcpcse, on=['caption1', 'caption2'], how='left')
+                    spearmanr_all.append(spearmanr(evaluation.gs_scores, evaluation.sys_scores)[0])
+                    
+                logging.debug('%s : bootstrap spearman = %.3f, std = %.3f' %
+                              (dataset, np.mean(spearmanr_all),
+                           np.std(spearmanr_all)))
+            ###################################################################
+            
             all_sys_scores.extend(sys_scores)
             all_gs_scores.extend(gs_scores)
             results[dataset] = {'pearson': pearsonr(sys_scores, gs_scores),
@@ -159,7 +194,7 @@ class STS16Eval(STSEval):
 
 class STSBenchmarkEval(STSEval):
     def __init__(self, task_path, seed=1111):
-        logging.debug('\n\n***** Transfer task : STSBenchmark*****\n\n')
+        logging.debug('\n\n***** Transfer task : STSBenchmark *****\n\n')
         self.seed = seed
         self.samples = []
         train = self.loadFile(os.path.join(task_path, 'sts-train.csv'))
@@ -183,7 +218,7 @@ class STSBenchmarkEval(STSEval):
 
 class STSBenchmarkFinetune(SICKEval):
     def __init__(self, task_path, seed=1111):
-        logging.debug('\n\n***** Transfer task : STSBenchmark*****\n\n')
+        logging.debug('\n\n***** Transfer task : STSBenchmark *****\n\n')
         self.seed = seed
         train = self.loadFile(os.path.join(task_path, 'sts-train.csv'))
         dev = self.loadFile(os.path.join(task_path, 'sts-dev.csv'))
@@ -204,7 +239,7 @@ class STSBenchmarkFinetune(SICKEval):
         
 class SICKRelatednessEval(STSEval):
     def __init__(self, task_path, seed=1111):
-        logging.debug('\n\n***** Transfer task : SICKRelatedness*****\n\n')
+        logging.debug('\n\n***** Transfer task : SICKRelatedness *****\n\n')
         self.seed = seed
         self.samples = []
         train = self.loadFile(os.path.join(task_path, 'SICK_train.txt'))
@@ -229,3 +264,40 @@ class SICKRelatednessEval(STSEval):
         sick_data['y'] = [float(s) for s in sick_data['y']]
         self.samples += sick_data['X_A'] + sick_data["X_B"]
         return (sick_data['X_A'], sick_data["X_B"], sick_data['y'])
+
+###############################################################################
+class CocoCXCEval(STSEval):
+    def __init__(self, task_path, seed=1111):
+        logging.debug('\n\n***** Transfer task : CocoCXC *****\n\n')
+        self.seed = seed
+        self.samples = []
+        test = self.loadFile(os.path.join(task_path, 'cxc-sts-test.csv'))
+        self.datasets = ['test']
+        self.data = {'test':test}
+        self.coco_test = self.load_coco_test(os.path.join(task_path, 'dataset_coco_with_cxc.json'))
+        self.cxc_data = pd.read_csv(os.path.join(task_path, 'cxc-sts-test.csv')) \
+            [['caption1', 'caption2', 'agg_score']].rename(columns={'agg_score':'gs_scores'})
+        
+    def loadFile(self, fpath):
+        sick_data = {'X_A': [], 'X_B': [], 'y': []}
+        
+        reader = csv.reader(open(fpath, "r", encoding='utf-8'), delimiter=",")
+        next(reader)  # Skip header.
+        for row in reader:
+            caption1, caption2, score, rating_type, sent1, sent2 = row
+            sick_data['X_A'].append(sent1.split())
+            sick_data['X_B'].append(sent2.split())
+            sick_data['y'].append(score)
+
+        sick_data['y'] = [float(s) for s in sick_data['y']]
+        self.samples += sick_data['X_A'] + sick_data["X_B"]
+        return (sick_data['X_A'], sick_data["X_B"], sick_data['y'])
+    
+    def load_coco_test(self, path):
+        data = json.load(open(path, "r"))
+        test_data = []
+        for i in data['images']:
+            if i['split'] == 'test':
+                test_data.append(i)
+        return test_data
+###############################################################################
