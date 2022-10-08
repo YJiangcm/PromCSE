@@ -7,7 +7,9 @@ from prettytable import PrettyTable
 import torch
 import transformers
 from transformers import AutoConfig, AutoTokenizer
-from dcpcse.models import RobertaForCL, BertForCL
+from promcse.models import RobertaForCL, BertForCL
+
+import matplotlib.pyplot as plt, seaborn
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s')
@@ -58,6 +60,15 @@ def main():
     parser.add_argument("--prefix_hidden_size", type=int, 
             default=512, 
             help="The hidden size of the MLP projection head in Prefix Encoder if prefix projection is used")
+    parser.add_argument("--add_eh_loss", 
+            action='store_true',
+            help="Whether to add Energy-based Hinge loss")
+    parser.add_argument("--eh_loss_margin", type=float, 
+            default=None, 
+            help="The margin of Energy-based Hinge loss")
+    parser.add_argument("--eh_loss_weight", type=float, 
+            default=None, 
+            help="The weight of Energy-based Hinge loss")
     parser.add_argument("--cache_dir", type=str, 
             default=None,
             help="Where do you want to store the pretrained models downloaded from huggingface.co")
@@ -74,7 +85,7 @@ def main():
             default='test', 
             help="What evaluation mode to use (dev: fast mode, dev results; test: full mode, test results); fasttest: fast mode, test results")
     parser.add_argument("--task_set", type=str, 
-            choices=['sts', 'transfer', 'full', 'na'],
+            choices=['sts', 'transfer', 'full', 'na', 'cococxc'],
             default='sts',
             help="What set of tasks to evaluate on. If not 'na', this will override '--tasks'")
     parser.add_argument("--tasks", type=str, nargs='+', 
@@ -82,11 +93,13 @@ def main():
                      'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'TREC', 'MRPC',
                      'SICKRelatedness', 'STSBenchmark'], 
             help="Tasks to evaluate on. If '--task_set' is specified, this will be overridden")
-    
-    
+
     
     args = parser.parse_args()
     
+    if args.add_eh_loss:
+        if args.eh_loss_margin is None or args.eh_loss_weight is None:
+            parser.error('Requiring eh_loss_margin and eh_loss_weight if add_eh_loss is provided')
     
     # Load transformers' model checkpoint
     config = AutoConfig.from_pretrained(args.model_name_or_path)
@@ -125,6 +138,8 @@ def main():
     elif args.task_set == 'full':
         args.tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']
         args.tasks += ['MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'TREC', 'MRPC']
+    elif args.task_set == 'cococxc':
+        args.tasks = ['CocoCXC']
 
     # Set params for SentEval
     if args.mode == 'dev' or args.mode == 'fasttest':
@@ -173,7 +188,7 @@ def main():
         
         # Get raw embeddings
         with torch.no_grad():
-            outputs = model(**batch, output_hidden_states=True, return_dict=True, sent_emb=True)
+            outputs = model(**batch, output_hidden_states=True, return_dict=True, sent_emb=True, output_attentions=True) ###############################
             pooler_output = outputs.pooler_output
             return pooler_output.cpu()
 
