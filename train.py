@@ -34,8 +34,8 @@ from transformers.tokenization_utils_base import BatchEncoding, PaddingStrategy,
 from transformers.trainer_utils import is_main_process
 from transformers.data.data_collator import DataCollatorForLanguageModeling
 from transformers.file_utils import cached_property, torch_required, is_torch_available, is_torch_tpu_available
-from dcpcse.models import RobertaForCL, BertForCL
-from dcpcse.trainers import CLTrainer
+from promcse.models import RobertaForCL, BertForCL
+from promcse.trainers import CLTrainer
 
 logger = logging.getLogger(__name__)
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_MASKED_LM_MAPPING.keys())
@@ -140,6 +140,24 @@ class ModelArguments:
             "help": "The hidden size of the MLP projection head in Prefix Encoder if prefix projection is used"
         }
     )
+    do_eh_loss: bool = field(
+        default=False,
+        metadata={
+            "help": "Whether to add Energy-based Hinge loss"
+        }
+    )
+    eh_loss_margin: float = field(
+        default=None,
+        metadata={
+            "help": "The margin of Energy-based Hinge loss"
+        }
+    )
+    eh_loss_weight: float = field(
+        default=10.0,
+        metadata={
+            "help": "The weight of Energy-based Hinge loss"
+        }
+    ) 
 
 
 @dataclass
@@ -279,6 +297,12 @@ def main():
         model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
     else:
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+        
+    ###########################################################################
+    if model_args.do_eh_loss:
+        if model_args.eh_loss_margin is None or model_args.eh_loss_weight is None:
+            parser.error('Requiring eh_loss_margin and eh_loss_weight if do_eh_loss is provided')
+    ###########################################################################
 
     if (
         os.path.exists(training_args.output_dir)
@@ -552,21 +576,6 @@ def main():
             indices_random = torch.bernoulli(torch.full(labels.shape, 0.5)).bool() & masked_indices & ~indices_replaced
             random_words = torch.randint(len(self.tokenizer), labels.shape, dtype=torch.long)
             inputs[indices_random] = random_words[indices_random]
-            
-            ###################################################################
-            # # 对于每个句子，我们随机选取一个非special token的token进行mask
-            # probability_matrix = torch.ones_like(labels)
-            # probability_matrix.masked_fill_(special_tokens_mask, value=0.0)
-            # picked_indices = torch.multinomial(probability_matrix.float(), 1)
-            # probability_matrix = torch.zeros_like(labels).scatter_(-1, picked_indices, 1.0)
-            
-            # masked_indices = torch.bernoulli(probability_matrix.float()).bool()
-            # labels[~masked_indices] = -100  # We only compute loss on masked tokens
-            
-            # # 100% of the time, we replace masked input tokens with tokenizer.mask_token ([MASK])
-            # indices_replaced = torch.bernoulli(torch.full(labels.shape, 1.0)).bool() & masked_indices
-            # inputs[indices_replaced] = self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token)
-            ###################################################################
             
             # The rest of the time (10% of the time) we keep the masked input tokens unchanged
             return inputs, labels
