@@ -76,7 +76,7 @@ We provide example training scripts for both unsupervised and supervised PromCSE
 * `--pre_seq_len`: The length of deep continuous prompt.
 * `--prefix_projection`: Whether apply a two-layer MLP head over the prompt embeddings.
 * `--prefix_hidden_size`: The hidden size of the MLP projection head if prefix_projection is used.
-* `--add_eh_loss`: Whether to add Energy-based Hinge loss. If True:
+* `--do_eh_loss`: Whether to use Energy-based Hinge loss in supervised models. If True:
   * `--eh_loss_margin`: Margin of Energy-based Hinge loss.
   * `--eh_loss_weight`: Weight of Energy-based Hinge loss.
 
@@ -107,13 +107,14 @@ All our experiments are conducted on Nvidia 3090 GPUs.
 
 
 ## Evaluation
-Our evaluation code for sentence embeddings is based on a modified version of [SentEval](https://github.com/facebookresearch/SentEval). It evaluates sentence embeddings on semantic textual similarity (STS) tasks and downstream transfer tasks. For STS tasks, our evaluation takes the "all" setting, and report Spearman's correlation.
+Our evaluation code for sentence embeddings is based on a modified version of [SentEval](https://github.com/facebookresearch/SentEval). It evaluates sentence embeddings on semantic textual similarity (STS) tasks and downstream transfer tasks. For STS tasks, our evaluation takes the "all" setting, and report Spearman's correlation. The STS tasks include seven standard STS tasks (STS12-16, STSB, SICK-R) and one domain-shifted STS task (CxC).
 
 Before evaluation, please download the evaluation datasets by running
 ```bash
 cd SentEval/data/downstream/
 bash download_dataset.sh
 ```
+To evaluate the domain shift robustness of sentence embedding, we need to download [CxC](https://drive.google.com/drive/folders/1ZnRlVlc4kFsKbaWj9cFbb8bQU0fxzz1c?usp=sharing), and put the data into *SentEval/data/downstream/CocoCXC*
 
 Then come back to the root directory, you can evaluate the well trained models using our evaluation code. For example,
 ```bash
@@ -133,6 +134,7 @@ which is expected to output the results in a tabular format:
 | 79.14 | 88.64 | 83.73 | 87.33 | 84.57 |    87.84     |      82.07      | 84.76 |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 ```
+```bash
 
 Arguments for the evaluation script are as follows,
 
@@ -149,6 +151,7 @@ Arguments for the evaluation script are as follows,
     * `fasttest`: It is the same as `test`, but with a fast mode so the running time is much shorter, but the reported numbers may be lower (only for transfer tasks).
 * `--task_set`: What set of tasks to evaluate on (if set, it will override `--tasks`)
     * `sts` (default): Evaluate on STS tasks, including `STS 12~16`, `STS-B` and `SICK-R`. This is the most commonly-used set of tasks to evaluate the quality of sentence embeddings.
+    * `cococxc` : Evaluate on domain-shifted CXC task.
     * `transfer`: Evaluate on transfer tasks.
     * `full`: Evaluate on both STS and transfer tasks.
     * `na`: Manually set tasks by `--tasks`.
