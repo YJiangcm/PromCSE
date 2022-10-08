@@ -60,7 +60,7 @@ def main():
     parser.add_argument("--prefix_hidden_size", type=int, 
             default=512, 
             help="The hidden size of the MLP projection head in Prefix Encoder if prefix projection is used")
-    parser.add_argument("--add_eh_loss", 
+    parser.add_argument("--do_eh_loss", 
             action='store_true',
             help="Whether to add Energy-based Hinge loss")
     parser.add_argument("--eh_loss_margin", type=float, 
@@ -97,9 +97,9 @@ def main():
     
     args = parser.parse_args()
     
-    if args.add_eh_loss:
+    if args.do_eh_loss:
         if args.eh_loss_margin is None or args.eh_loss_weight is None:
-            parser.error('Requiring eh_loss_margin and eh_loss_weight if add_eh_loss is provided')
+            parser.error('Requiring eh_loss_margin and eh_loss_weight if do_eh_loss is provided')
     
     # Load transformers' model checkpoint
     config = AutoConfig.from_pretrained(args.model_name_or_path)
