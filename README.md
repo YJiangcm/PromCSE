@@ -134,7 +134,6 @@ which is expected to output the results in a tabular format:
 | 79.14 | 88.64 | 83.73 | 87.33 | 84.57 |    87.84     |      82.07      | 84.76 |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 ```
-```bash
 
 Arguments for the evaluation script are as follows,
 
@@ -151,7 +150,7 @@ Arguments for the evaluation script are as follows,
     * `fasttest`: It is the same as `test`, but with a fast mode so the running time is much shorter, but the reported numbers may be lower (only for transfer tasks).
 * `--task_set`: What set of tasks to evaluate on (if set, it will override `--tasks`)
     * `sts` (default): Evaluate on STS tasks, including `STS 12~16`, `STS-B` and `SICK-R`. This is the most commonly-used set of tasks to evaluate the quality of sentence embeddings.
-    * `cococxc` : Evaluate on domain-shifted CXC task.
+    * `cococxc`: Evaluate on domain-shifted CXC task.
     * `transfer`: Evaluate on transfer tasks.
     * `full`: Evaluate on both STS and transfer tasks.
     * `na`: Manually set tasks by `--tasks`.
