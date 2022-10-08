@@ -1,13 +1,14 @@
+# python -m torch.distributed.launch --nproc_per_node $NUM_GPU --master_port $PORT_ID train.py \
 #!/bin/bash
 
-# In this example, we show how to train DCPCSE using multiple GPU cards and PyTorch's distributed data parallel on supervised NLI dataset.
+# In this example, we show how to train PromCSE using multiple GPU cards and PyTorch's distributed data parallel on supervised NLI dataset.
 # Set how many GPUs to use
 
 NUM_GPU=2
 
 # Randomly set a port number
 # If you encounter "address already used" error, just run again or manually set an available port id.
-PORT_ID=$(expr $RANDOM + 1000)
+PORT_ID=25901
 
 # Allow multiple threads
 export OMP_NUM_THREADS=8
@@ -18,8 +19,8 @@ export OMP_NUM_THREADS=8
 python -m torch.distributed.launch --nproc_per_node $NUM_GPU --master_port $PORT_ID train.py \
     --model_name_or_path roberta-large \
     --train_file data/nli_for_simcse.csv \
-    --output_dir result/my-sup-dcpcse-roberta-large \
-    --num_train_epochs 5 \
+    --output_dir result/my-sup-promcse-eh-roberta-large \
+    --num_train_epochs 10 \
     --per_device_train_batch_size 256 \
     --learning_rate 5e-3 \
     --max_seq_length 32 \
@@ -31,6 +32,9 @@ python -m torch.distributed.launch --nproc_per_node $NUM_GPU --master_port $PORT
     --pre_seq_len 10 \
     --overwrite_output_dir \
     --temp 0.05 \
+    --do_eh_loss \
+    --eh_loss_margin 0.2 \
+    --eh_loss_weight 10 \
     --do_train \
     --do_eval \
     --fp16 \
