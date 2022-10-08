@@ -6,9 +6,7 @@
 #
 
 '''
-
 Generic sentence evaluation scripts wrapper
-
 '''
 from __future__ import absolute_import, division, unicode_literals
 
@@ -18,7 +16,7 @@ from senteval.snli import SNLIEval
 from senteval.trec import TRECEval
 from senteval.sick import SICKEntailmentEval, SICKEval
 from senteval.mrpc import MRPCEval
-from senteval.sts import STS12Eval, STS13Eval, STS14Eval, STS15Eval, STS16Eval, STSBenchmarkEval, SICKRelatednessEval, STSBenchmarkFinetune
+from senteval.sts import STS12Eval, STS13Eval, STS14Eval, STS15Eval, STS16Eval, STSBenchmarkEval, SICKRelatednessEval, STSBenchmarkFinetune, CocoCXCEval
 from senteval.sst import SSTEval
 from senteval.rank import ImageCaptionRetrievalEval
 from senteval.probing import *
@@ -51,7 +49,8 @@ class SE(object):
                            'STS14', 'STS15', 'STS16',
                            'Length', 'WordContent', 'Depth', 'TopConstituents',
                            'BigramShift', 'Tense', 'SubjNumber', 'ObjNumber',
-                           'OddManOut', 'CoordinationInversion', 'SICKRelatedness-finetune', 'STSBenchmark-finetune', 'STSBenchmark-fix']
+                           'OddManOut', 'CoordinationInversion', 'SICKRelatedness-finetune', 'STSBenchmark-finetune', 'STSBenchmark-fix',
+                           'CocoCXC']
 
     def eval(self, name):
         # evaluate on evaluation [name], either takes string or list of strings
@@ -98,6 +97,8 @@ class SE(object):
             self.evaluation = eval(name + 'Eval')(tpath + '/downstream/STS/' + fpath, seed=self.params.seed)
         elif name == 'ImageCaptionRetrieval':
             self.evaluation = ImageCaptionRetrievalEval(tpath + '/downstream/COCO', seed=self.params.seed)
+        elif name == 'CocoCXC':
+            self.evaluation = CocoCXCEval(tpath + '/downstream/CocoCXC', seed=self.params.seed)
 
         # Probing Tasks
         elif name == 'Length':
