@@ -161,8 +161,8 @@ Please cite our paper by:
 
 ```bibtex
 @misc{jiang2022promcse,
-      title={Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings}, 
-      author={Yuxin Jiang and Wei Wang},
+      title={Improved Universal Sentence Embeddings with Prompt-based Contrastive Learning and Energy-based Learning}, 
+      author={Yuxin Jiang, Linhan Zhang and Wei Wang},
       year={2022},
       eprint={2203.06875},
       archivePrefix={arXiv},
