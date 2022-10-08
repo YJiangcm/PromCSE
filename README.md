@@ -19,10 +19,8 @@ We release our best model checkpoint which acquires **Top 1** results on four ST
 
 If you have any questions, feel free to raise an issue.
 
-## Architecture
-<img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/model%20architecture.png" width="600" height="300">
-
-We add multi-layer trainable dense vectors as soft prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). Note that all parameters of the pre-trained model are frozen (the blue blocks), thus reducing the number of tunable parameters to around **0.1\%**. The [CLS] token embedding of the last layer is selected as the sentence representation. The contrastive framework is the same as SimCSE.
+[//]: <## Architecture>
+[//]: <We add multi-layer trainable dense vectors as soft prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). Note that all parameters of the pre-trained model are frozen (the blue blocks), thus reducing the number of tunable parameters to around **0.1\%**. The [CLS] token embedding of the last layer is selected as the sentence representation. The contrastive framework is the same as SimCSE.>
 
 
 ## Setups
@@ -78,6 +76,9 @@ We provide example training scripts for both unsupervised and supervised PromCSE
 * `--pre_seq_len`: The length of deep continuous prompt.
 * `--prefix_projection`: Whether apply a two-layer MLP head over the prompt embeddings.
 * `--prefix_hidden_size`: The hidden size of the MLP projection head if prefix_projection is used.
+* `--add_eh_loss`: Whether to add Energy-based Hinge loss. If True:
+  * `--eh_loss_margin`: Margin of Energy-based Hinge loss.
+  * `--eh_loss_weight`: Weight of Energy-based Hinge loss.
 
 All the other arguments are standard Huggingface's `transformers` training arguments. Some of the often-used arguments are: `--output_dir`, `--learning_rate`, `--per_device_train_batch_size`. In our example scripts, we also set to evaluate the model on the STS-B development set (need to download the dataset following the [evaluation](#evaluation) section) and save the best checkpoint.
 
@@ -97,8 +98,8 @@ All our experiments are conducted on Nvidia 3090 GPUs.
     
 | **Supervised** | BERT-base | BERT-large | RoBERTa-base  | RoBERTa-large |
 |:--------------|:-----------:|:--------------:|:---------:|:---------:|
-| Batch size    | 256          | 256            | 256       | 256
-| Learning rate  | 5e-3 | 5e-3 | 1e-2 | 5e-3 |
+| Batch size    | 256          | 256            | 512       | 512
+| Learning rate  | 1e-2 | 5e-3 | 1e-2 | 5e-3 |
 | Prompt length | 12 | 12 | 10 | 10 |
 | do_mlm | False | False | False | False |
 | Epoch |10|10|10|10|
