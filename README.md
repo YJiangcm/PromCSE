@@ -157,6 +157,79 @@ Arguments for the evaluation script are as follows,
 * `--tasks`: Specify which dataset(s) to evaluate on. Will be overridden if `--task_set` is not `na`. See the code for a full list of tasks.
 * `--pre_seq_len`: The length of deep continuous prompt.
 
+## Usage
+We provide *tool.py* to easily compute the cosine similarities between two groups of sentences as well as build index for a group of sentences and search among them. You can have a try by runing
+```bash
+python tool.py \
+    --model_name_or_path result/my-unsup-promcse-bert-base-uncased \
+    --pooler_type cls_before_pooler \
+    --pre_seq_len 16
+```
+
+which is expected to output the following results.
+```
+=========Calculate cosine similarities between queries and sentences============
+
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.18it/s]100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 42.26it/s][[0.5904227  0.70516586 0.65185255 0.82756    0.6969594  0.85966974
+  0.58715546 0.8467339  0.6583321  0.6792214 ]
+ [0.6125869  0.73508096 0.61479807 0.6182762  0.6161849  0.59476817
+  0.595963   0.61386335 0.694822   0.938746  ]]
+
+=========Naive brute force search============
+
+2022-10-09 11:59:06,004 : Encoding embeddings for sentences...
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 46.03it/s]2022-10-09 11:59:06,029 : Building index...
+2022-10-09 11:59:06,029 : Finished
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 95.40it/s]100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 115.25it/s]Retrieval results for query: A man is playing music.
+    A man plays the piano.  (cosine similarity: 0.8597)
+    A man plays a guitar.  (cosine similarity: 0.8467)
+    A man plays the violin.  (cosine similarity: 0.8276)
+    A woman is reading.  (cosine similarity: 0.7051)
+    A man is eating food.  (cosine similarity: 0.6969)
+    A woman is taking a picture.  (cosine similarity: 0.6792)
+    A woman is slicing a meat.  (cosine similarity: 0.6583)
+    A man is lifting weights in a garage.  (cosine similarity: 0.6518)
+
+Retrieval results for query: A woman is making a photo.
+    A woman is taking a picture.  (cosine similarity: 0.9387)
+    A woman is reading.  (cosine similarity: 0.7351)
+    A woman is slicing a meat.  (cosine similarity: 0.6948)
+    A man plays the violin.  (cosine similarity: 0.6183)
+    A man is eating food.  (cosine similarity: 0.6162)
+    A man is lifting weights in a garage.  (cosine similarity: 0.6148)
+    A man plays a guitar.  (cosine similarity: 0.6139)
+    An animal is biting a persons finger.  (cosine similarity: 0.6126)
+
+
+=========Search with Faiss backend============
+
+2022-10-09 11:59:06,055 : Loading faiss with AVX2 support.
+2022-10-09 11:59:06,092 : Successfully loaded faiss with AVX2 support.
+2022-10-09 11:59:06,093 : Encoding embeddings for sentences...
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  4.17it/s]2022-10-09 11:59:06,335 : Building index...
+2022-10-09 11:59:06,335 : Use GPU-version faiss
+2022-10-09 11:59:06,447 : Finished
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 101.44it/s]Retrieval results for query: A man is playing music.
+    A man plays the piano.  (cosine similarity: 0.8597)
+    A man plays a guitar.  (cosine similarity: 0.8467)
+    A man plays the violin.  (cosine similarity: 0.8276)
+    A woman is reading.  (cosine similarity: 0.7052)
+    A man is eating food.  (cosine similarity: 0.6970)
+    A woman is taking a picture.  (cosine similarity: 0.6792)
+    A woman is slicing a meat.  (cosine similarity: 0.6583)
+    A man is lifting weights in a garage.  (cosine similarity: 0.6519)
+
+Retrieval results for query: A woman is making a photo.
+    A woman is taking a picture.  (cosine similarity: 0.9387)
+    A woman is reading.  (cosine similarity: 0.7351)
+    A woman is slicing a meat.  (cosine similarity: 0.6948)
+    A man plays the violin.  (cosine similarity: 0.6183)
+    A man is eating food.  (cosine similarity: 0.6162)
+    A man is lifting weights in a garage.  (cosine similarity: 0.6148)
+    A man plays a guitar.  (cosine similarity: 0.6139)
+    An animal is biting a persons finger.  (cosine similarity: 0.6126)
+```
+
 ## Citation
 
 Please cite our paper by:
