@@ -18,7 +18,7 @@ We release our best model checkpoint which acquires **Top 1** results on four ST
 |          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
 |:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |  sup-PromCSE-RoBERTa-large [huggingface link](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
-|  unsup-PromCSE-BERT-base [huggingface link](https://drive.google.com/drive/folders/1OcgJ-7gU_N7J7x5ezrigFLlTU8h7Uvjx?usp=sharing)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
+|  unsup-PromCSE-BERT-base [huggingface link](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
 
 If you have any questions, feel free to raise an issue.
 
@@ -122,7 +122,7 @@ To evaluate the domain shift robustness of sentence embedding, we need to downlo
 Then come back to the root directory, you can evaluate the well trained models using our evaluation code. For example,
 ```bash
 python evaluation.py \
-    --model_name_or_path result/my-sup-promcse-roberta-large \
+    --model_name_or_path YuxinJiang/sup-promcse-roberta-large \
     --pooler_type cls \
     --task_set sts \
     --mode test \
@@ -164,7 +164,7 @@ Arguments for the evaluation script are as follows,
 We provide *tool.py* to easily compute the cosine similarities between two groups of sentences as well as build index for a group of sentences and search among them. You can have a try by runing
 ```bash
 python tool.py \
-    --model_name_or_path result/my-unsup-promcse-bert-base-uncased \
+    --model_name_or_path YuxinJiang/unsup-promcse-bert-base-uncased \
     --pooler_type cls_before_pooler \
     --pre_seq_len 16
 ```
