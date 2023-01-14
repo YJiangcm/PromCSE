@@ -20,8 +20,8 @@ We have released our model checkpoints on [![huggingface](https://img.shields.io
 
 |          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
 |:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|  sup-PromCSE-RoBERTa-large ([huggingface](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased))  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
-|  unsup-PromCSE-BERT-base ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large))  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
+|  sup-PromCSE-RoBERTa-large ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large))  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
+|  unsup-PromCSE-BERT-base ([huggingface](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased))  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
 
 If you have any questions, feel free to raise an issue.
 
