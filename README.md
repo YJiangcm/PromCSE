@@ -17,8 +17,8 @@ We release our best model checkpoint which acquires **Top 1** results on four ST
 
 |          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
 |:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|  sup-PromCSE-RoBERTa-large [huggingface link](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
-|  unsup-PromCSE-BERT-base [huggingface link](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
+|  sup-PromCSE-RoBERTa-large ([huggingface](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased))  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
+|  unsup-PromCSE-BERT-base [huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
 
 If you have any questions, feel free to raise an issue.
 
@@ -27,6 +27,8 @@ If you have any questions, feel free to raise an issue.
 
 
 ## Setups
+
+[![Python](https://img.shields.io/badge/python-3.8.2-blue?logo=python&logoColor=FED643)](https://www.python.org/downloads/release/python-382/)
 [![Pytorch](https://img.shields.io/badge/pytorch-1.7.1-red?logo=pytorch)](https://pytorch.org/get-started/previous-versions/)
 
 Run the following script to install the remaining dependencies,
