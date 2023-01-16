@@ -251,6 +251,7 @@ Retrieval results for query: A woman is making a photo.
     An animal is biting a persons finger.  (cosine similarity: 0.6126)
 ```
 
+
 ## Citation
 
 Please cite our paper by:
