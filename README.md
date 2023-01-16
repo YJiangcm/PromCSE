@@ -1,5 +1,12 @@
 # PromCSE: Improved Universal Sentence Embeddings with Prompt-based Contrastive Learning and Energy-based Learning
 
+arXiv link: https://arxiv.org/abs/2203.06875v2  
+To be published in [**EMNLP 2022**](https://2022.emnlp.org/)
+
+Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
+
+We have released our model checkpoints on [![huggingface](https://img.shields.io/badge/%F0%9F%A4%97-huggingface-yellow)](https://huggingface.co/YuxinJiang), which acquire **Top 1** results on 4 STS tasks:
+
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/deep-continuous-prompt-for-contrastive-1/semantic-textual-similarity-on-sick)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sick?p=deep-continuous-prompt-for-contrastive-1)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/deep-continuous-prompt-for-contrastive-1/semantic-textual-similarity-on-sts12)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sts12?p=deep-continuous-prompt-for-contrastive-1)
 
@@ -8,13 +15,6 @@
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/deep-continuous-prompt-for-contrastive-1/semantic-textual-similarity-on-sts16)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sts16?p=deep-continuous-prompt-for-contrastive-1)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/deep-continuous-prompt-for-contrastive-1/semantic-textual-similarity-on-sts15)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sts15?p=deep-continuous-prompt-for-contrastive-1)
-
-arXiv link: https://arxiv.org/abs/2203.06875v2  
-To be published in [**EMNLP 2022**](https://2022.emnlp.org/)
-
-Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
-
-We have released our model checkpoints on [![huggingface](https://img.shields.io/badge/%F0%9F%A4%97-huggingface-yellow)](https://huggingface.co/YuxinJiang), which acquire **Top 1** results on 4 STS tasks:
 
 <!-- <img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/leaderboard.png" width="700" height="380"> -->
 
