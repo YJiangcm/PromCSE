@@ -142,7 +142,7 @@ which is expected to output the results in a tabular format:
 | 79.14 | 88.64 | 83.73 | 87.33 | 84.57 |    87.84     |      82.07      | 84.76 |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 ```
-We also provide a simple colab notebook to reproduce our results easily [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/voidism/DiffCSE/blob/master/diffcse_evaluation.ipynb). 
+We also provide a simple colab notebook to reproduce our results easily [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ubtve9fqljSTbFH4dYZkXOxitrUl6Az3?usp=sharing). 
 
 Arguments for the evaluation script are as follows,
 
