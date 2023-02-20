@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 
 arXiv link: https://arxiv.org/abs/2203.06875v2  
-To be published in [**EMNLP 2022**](https://2022.emnlp.org/)
+Published in [**EMNLP 2022**](https://2022.emnlp.org/)
 
 Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
 
