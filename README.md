@@ -257,12 +257,17 @@ Retrieval results for query: A woman is making a photo.
 Please cite our paper by:
 
 ```bibtex
-@misc{jiang2022promcse,
-      title={Improved Universal Sentence Embeddings with Prompt-based Contrastive Learning and Energy-based Learning}, 
-      author={Yuxin Jiang, Linhan Zhang and Wei Wang},
-      year={2022},
-      eprint={2203.06875},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@inproceedings{jiang-etal-2022-improved,
+    title = "Improved Universal Sentence Embeddings with Prompt-based Contrastive Learning and Energy-based Learning",
+    author = "Jiang, Yuxin  and
+      Zhang, Linhan  and
+      Wang, Wei",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2022",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.findings-emnlp.220",
+    pages = "3021--3035",
 }
 ```
