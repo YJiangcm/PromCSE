@@ -8,7 +8,9 @@ Published in [**EMNLP 2022**](https://2022.emnlp.org/)
 
 Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
 
-We have released our supervised and unsupervised models on huggingface, which acquire **Top 1** results on 4 standard STS tasks:
+We have released our supervised and unsupervised models on huggingface, which acquire **Top 1** results on 1 domain-shifted STS task and 4 standard STS tasks:
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/deep-continuous-prompt-for-contrastive-1/semantic-textual-similarity-on-cxc)](https://paperswithcode.com/sota/semantic-textual-similarity-on-cxc?p=deep-continuous-prompt-for-contrastive-1)
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/deep-continuous-prompt-for-contrastive-1/semantic-textual-similarity-on-sick)](https://paperswithcode.com/sota/semantic-textual-similarity-on-sick?p=deep-continuous-prompt-for-contrastive-1)
 
