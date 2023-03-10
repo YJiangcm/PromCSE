@@ -6,7 +6,7 @@
 arXiv link: https://arxiv.org/abs/2203.06875v2  
 Published in [**EMNLP 2022**](https://2022.emnlp.org/)
 
-Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works.
+Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works. Our models acquires comparable results to [PromptBERT](https://github.com/kongds/Prompt-BERT) **without designing discrete prompts manually**.
 
 We have released our supervised and unsupervised models on huggingface, which acquire **Top 1** results on 1 domain-shifted STS task and 4 standard STS tasks:
 
