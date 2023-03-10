@@ -28,8 +28,9 @@ We have released our supervised and unsupervised models on huggingface, which ac
 
 |          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
 |:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|  sup-PromCSE-RoBERTa-large ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large))  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
 |  unsup-PromCSE-BERT-base ([huggingface](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased))  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
+|  sup-PromCSE-RoBERTa-base ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-base))  |  76.75 |85.86| 80.98| 86.51 |83.51| 86.58| 80.41| 82.94|
+|  sup-PromCSE-RoBERTa-large ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large))  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
 
 If you have any questions, feel free to raise an issue.
 
