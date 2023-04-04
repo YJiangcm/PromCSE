@@ -182,7 +182,7 @@ All our experiments are conducted on Nvidia 3090 GPUs.
 
 
 ## Usage
-We provide *tool.py* which contains the following functions (A quick start [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)):  
+We provide [tool.py](https://github.com/YJiangcm/PromCSE/blob/master/tool.py) which contains the following functions (A quick start [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)):  
 
 **(1) encode sentences into embedding vectors;  
 (2) compute cosine simiarities between sentences;  
