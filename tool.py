@@ -25,7 +25,7 @@ logger.setLevel(logging.DEBUG)
 
 class PromCSE(object):
     """
-    A class for embedding sentences, calculating similarities, and retriving sentences by PromCSE.
+    A class for embedding sentences, calculating similarities, and retriving sentences by SimCSE.
     """
     def __init__(self, args, 
                  device: str = None,
@@ -39,7 +39,7 @@ class PromCSE(object):
                     from_tf=bool(".ckpt" in args.model_name_or_path),
                     config=AutoConfig.from_pretrained(args.model_name_or_path),
                     cache_dir=args.cache_dir,
-                    revision=args.model_revision,
+                    revision="main",
                     use_auth_token=True if args.use_auth_token else None,
                     model_args=args
                 )
@@ -49,7 +49,7 @@ class PromCSE(object):
                     from_tf=bool(".ckpt" in args.model_name_or_path),
                     config=AutoConfig.from_pretrained(args.model_name_or_path),
                     cache_dir=args.cache_dir,
-                    revision=args.model_revision,
+                    revision="main",
                     use_auth_token=True if args.use_auth_token else None,
                     model_args=args
                 )
@@ -260,12 +260,20 @@ class PromCSE(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    
+    ############################# only need to provide the following 3 arguments #############################
     parser.add_argument("--model_name_or_path", type=str, 
             help="Transformers' model name or path")
+    parser.add_argument("--pre_seq_len", type=int, 
+            default=10, 
+            help="The length of prompt")
     parser.add_argument("--pooler_type", type=str, 
             choices=['cls', 'cls_before_pooler', 'avg', 'avg_top2', 'avg_first_last'], 
             default='cls', 
             help="Which pooler to use")
+    ############################# only need to provide the above 3 arguments #################################
+    
+    
     parser.add_argument("--temp", type=float, 
             default=0.05, 
             help="Temperature for softmax.")
@@ -279,9 +287,6 @@ if __name__ == "__main__":
             help="Weight for MLM auxiliary objective (only effective if --do_mlm).")
     parser.add_argument("--mlp_only_train", action='store_true', 
             help="Use MLP only during training")
-    parser.add_argument("--pre_seq_len", type=int, 
-            default=10, 
-            help="The length of prompt")
     parser.add_argument("--prefix_projection", action='store_true', 
             help="Apply a two-layer MLP head over the prefix embeddings")
     parser.add_argument("--prefix_hidden_size", type=int, 
@@ -299,27 +304,9 @@ if __name__ == "__main__":
     parser.add_argument("--cache_dir", type=str, 
             default=None,
             help="Where do you want to store the pretrained models downloaded from huggingface.co")
-    parser.add_argument("--model_revision", type=str, 
-            default="main",
-            help="The specific model version to use (can be a branch name, tag name or commit id).")
     parser.add_argument("--use_auth_token", action='store_true', 
             help="Will use the token generated when running `transformers-cli login` (necessary to use this script "
             "with private models).")
-    
-    
-    parser.add_argument("--mode", type=str, 
-            choices=['dev', 'test', 'fasttest'],
-            default='test', 
-            help="What evaluation mode to use (dev: fast mode, dev results; test: full mode, test results); fasttest: fast mode, test results")
-    parser.add_argument("--task_set", type=str, 
-            choices=['sts', 'transfer', 'full', 'na', 'cococxc'],
-            default='sts',
-            help="What set of tasks to evaluate on. If not 'na', this will override '--tasks'")
-    parser.add_argument("--tasks", type=str, nargs='+', 
-            default=['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
-                     'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'TREC', 'MRPC',
-                     'SICKRelatedness', 'STSBenchmark'], 
-            help="Tasks to evaluate on. If '--task_set' is specified, this will be overridden")
     
     
     args = parser.parse_args()
