@@ -182,7 +182,11 @@ All our experiments are conducted on Nvidia 3090 GPUs.
 
 
 ## Usage
-We provide *tool.py* to easily compute the cosine similarities between two groups of sentences as well as build index for a group of sentences and search among them. You can have a try by runing
+We provide *tool.py* which contains the following functions:
+**(1) encode sentences into embedding vectors;
+(2) compute cosine simiarities between sentences;
+(3) given queries, retrival top-k semantically similar sentences for each query.**
+You can have a try by runing
 ```bash
 python tool.py \
     --model_name_or_path YuxinJiang/unsup-promcse-bert-base-uncased \
