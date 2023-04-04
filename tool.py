@@ -21,12 +21,12 @@ logger.setLevel(logging.DEBUG)
 
 class Namespace(object):
     def __init__(self, 
-                 model_name_or_path,
-                 pre_seq_len,
-                 pooler_type):
+                 model_name_or_path: str,
+                 pooler_type: str,
+                 pre_seq_len: int):
         self.model_name_or_path = model_name_or_path
-        self.pre_seq_len = pre_seq_len
         self.pooler_type = pooler_type
+        self.pre_seq_len = pre_seq_len
         
         self.temp = None
         self.hard_negative_weight = None
@@ -285,13 +285,13 @@ if __name__ == "__main__":
     ############################# only need to provide the following 3 arguments #############################
     parser.add_argument("--model_name_or_path", type=str, 
             help="Transformers' model name or path")
-    parser.add_argument("--pre_seq_len", type=int, 
-            default=10, 
-            help="The length of prompt")
     parser.add_argument("--pooler_type", type=str, 
             choices=['cls', 'cls_before_pooler', 'avg', 'avg_top2', 'avg_first_last'], 
             default='cls', 
             help="Which pooler to use")
+    parser.add_argument("--pre_seq_len", type=int, 
+            default=10, 
+            help="The length of prompt")
     ############################# only need to provide the above 3 arguments #################################
     
     args = parser.parse_args()
