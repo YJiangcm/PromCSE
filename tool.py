@@ -6,22 +6,42 @@ from transformers import AutoConfig, AutoTokenizer
 from promcse.models import BertForCL, RobertaForCL
 from tqdm import tqdm
 from numpy import ndarray
-from typing import List, Dict, Tuple, Type, Union
-from torch import Tensor, device
+from typing import List, Tuple, Union
+from torch import Tensor
 from sklearn.metrics.pairwise import cosine_similarity
 
-import pandas as pd
 import numpy as np
-import io
-import os
-import random
 import torch
-from torch.autograd import Variable
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
+
+
+class Namespace(object):
+    def __init__(self, 
+                 model_name_or_path,
+                 pre_seq_len,
+                 pooler_type):
+        self.model_name_or_path = model_name_or_path
+        self.pre_seq_len = pre_seq_len
+        self.pooler_type = pooler_type
+        
+        self.temp = None
+        self.hard_negative_weight = None
+        self.do_mlm = None
+        self.mlm_weight = None
+        self.mlp_only_train = None
+        self.prefix_projection = None
+        self.prefix_hidden_size = None
+        self.do_eh_loss = None
+        self.eh_loss_margin = None
+        self.eh_loss_weight = None
+        self.cache_dir = None
+        self.use_auth_token = None
+        pass
+
 
 class PromCSE(object):
     """
@@ -62,6 +82,7 @@ class PromCSE(object):
         self.is_faiss_index = False
         self.num_cells = num_cells
         self.num_cells_in_search = num_cells_in_search
+    
     
     def encode(self, sentence: Union[str, List[str]], 
                 device: str = None, 
@@ -193,6 +214,7 @@ class PromCSE(object):
         self.index["index"] = index
         logger.info("Finished")
 
+
     def add_to_index(self, sentences_or_file_path: Union[str, List[str]],
                         device: str = None,
                         batch_size: int = 64):
@@ -215,7 +237,6 @@ class PromCSE(object):
             self.index["index"] = np.concatenate((self.index["index"], embeddings))
         self.index["sentences"] += sentences_or_file_path
         logger.info("Finished")
-
 
     
     def search(self, queries: Union[str, List[str]], 
@@ -273,44 +294,10 @@ if __name__ == "__main__":
             help="Which pooler to use")
     ############################# only need to provide the above 3 arguments #################################
     
-    
-    parser.add_argument("--temp", type=float, 
-            default=0.05, 
-            help="Temperature for softmax.")
-    parser.add_argument("--hard_negative_weight", type=float, 
-            default=0.0, 
-            help="The **logit** of weight for hard negatives (only effective if hard negatives are used).")
-    parser.add_argument("--do_mlm", action='store_true', 
-            help="Whether to use MLM auxiliary objective.")
-    parser.add_argument("--mlm_weight", type=float, 
-            default=0.1, 
-            help="Weight for MLM auxiliary objective (only effective if --do_mlm).")
-    parser.add_argument("--mlp_only_train", action='store_true', 
-            help="Use MLP only during training")
-    parser.add_argument("--prefix_projection", action='store_true', 
-            help="Apply a two-layer MLP head over the prefix embeddings")
-    parser.add_argument("--prefix_hidden_size", type=int, 
-            default=512, 
-            help="The hidden size of the MLP projection head in Prefix Encoder if prefix projection is used")
-    parser.add_argument("--do_eh_loss", 
-            action='store_true',
-            help="Whether to add Energy-based Hinge loss")
-    parser.add_argument("--eh_loss_margin", type=float, 
-            default=None, 
-            help="The margin of Energy-based Hinge loss")
-    parser.add_argument("--eh_loss_weight", type=float, 
-            default=None, 
-            help="The weight of Energy-based Hinge loss")
-    parser.add_argument("--cache_dir", type=str, 
-            default=None,
-            help="Where do you want to store the pretrained models downloaded from huggingface.co")
-    parser.add_argument("--use_auth_token", action='store_true', 
-            help="Will use the token generated when running `transformers-cli login` (necessary to use this script "
-            "with private models).")
-    
-    
     args = parser.parse_args()
-    
+    args = Namespace(args.model_name_or_path,
+                     args.pre_seq_len,
+                     args.pooler_type)
 
     example_sentences = [
         'An animal is biting a persons finger.',
