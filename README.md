@@ -1,5 +1,5 @@
 # PromCSE: Improved Universal Sentence Embeddings with Prompt-based Contrastive Learning and Energy-based Learning
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ubtve9fqljSTbFH4dYZkXOxitrUl6Az3?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)
 [![huggingface](https://img.shields.io/badge/%F0%9F%A4%97-huggingface-yellow)](https://huggingface.co/YuxinJiang)
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 
@@ -55,7 +55,7 @@ In the following section, we describe how to train a PromCSE model by using our 
 
 
 ### Evaluation
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ubtve9fqljSTbFH4dYZkXOxitrUl6Az3?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)
 
 Our evaluation code for sentence embeddings is based on a modified version of [SentEval](https://github.com/facebookresearch/SentEval). It evaluates sentence embeddings on semantic textual similarity (STS) tasks and downstream transfer tasks. For STS tasks, our evaluation takes the "all" setting, and report Spearman's correlation. The STS tasks include seven standard STS tasks (STS12-16, STSB, SICK-R) and one domain-shifted STS task (CxC).
 
@@ -182,10 +182,12 @@ All our experiments are conducted on Nvidia 3090 GPUs.
 
 
 ## Usage
-We provide *tool.py* which contains the following functions:
-**(1) encode sentences into embedding vectors;
-(2) compute cosine simiarities between sentences;
-(3) given queries, retrival top-k semantically similar sentences for each query.**
+We provide *tool.py* which contains the following functions (A quick start [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)):  
+
+**(1) encode sentences into embedding vectors;  
+(2) compute cosine simiarities between sentences;  
+(3) given queries, retrieval top-k semantically similar sentences for each query.**  
+
 You can have a try by runing
 ```bash
 python tool.py \
