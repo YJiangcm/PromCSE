@@ -296,8 +296,8 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     args = Namespace(args.model_name_or_path,
-                     args.pre_seq_len,
-                     args.pooler_type)
+                     args.pooler_type,
+                     args.pre_seq_len)
 
     example_sentences = [
         'An animal is biting a persons finger.',
