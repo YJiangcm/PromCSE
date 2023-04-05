@@ -59,8 +59,9 @@ We have released our supervised and unsupervised models on huggingface, which ac
 
 
 ## Getting Started
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)
 
-We provide an easy-to-use python package `promcse` which contains the following functions (A quick start [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)):  
+We provide an easy-to-use python package `promcse` which contains the following functions:  
 
 **(1) encode sentences into embedding vectors;  
 (2) compute cosine simiarities between sentences;  
