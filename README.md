@@ -26,19 +26,68 @@ We have released our supervised and unsupervised models on huggingface, which ac
 
 <!-- <img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/leaderboard.png" width="700" height="380"> -->
 
-|          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
-|:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|  unsup-PromCSE-BERT-base ([huggingface](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased))  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
-|  sup-PromCSE-RoBERTa-base ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-base))  |  76.75 |85.86| 80.98| 86.51 |83.51| 86.58| 80.41| 82.94|
-|  sup-PromCSE-RoBERTa-large ([huggingface](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large))  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
-
-If you have any questions, feel free to raise an issue.
 
 [//]: <## Architecture>
 [//]: <We add multi-layer trainable dense vectors as soft prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). Note that all parameters of the pre-trained model are frozen (the blue blocks), thus reducing the number of tunable parameters to around **0.1\%**. The [CLS] token embedding of the last layer is selected as the sentence representation. The contrastive framework is the same as SimCSE.>
 
+## Getting Started
 
-## Setups
+We provide an easy-to-use python package `promcse` which contains the following functions (A quick start [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)):  
+
+**(1) encode sentences into embedding vectors;  
+(2) compute cosine simiarities between sentences;  
+(3) given queries, retrieval top-k semantically similar sentences for each query.**  
+
+To use the tool, first install the `promcse` package from PyPI
+```bash
+pip install promcse
+```
+After installing the package, you can load our model by two lines of code
+```python
+from promcse import PromCSE
+model = PromCSE("YuxinJiang/unsup-promcse-bert-base-uncased", "cls_before_pooler", 16)
+# model = PromCSE("YuxinJiang/sup-promcse-roberta-base")
+# model = PromCSE("YuxinJiang/sup-promcse-roberta-large")
+```
+
+Then you can use our model for **encoding sentences into embeddings**
+```python
+embeddings = model.encode("A woman is reading.")
+```
+
+**Compute the cosine similarities** between two groups of sentences
+```python
+sentences_a = ['A woman is reading.', 'A man is playing a guitar.']
+sentences_b = ['He plays guitar.', 'A woman is making a photo.']
+similarities = model.similarity(sentences_a, sentences_b)
+```
+
+Or build index for a group of sentences and **search** among them
+```python
+sentences = ['A woman is reading.', 'A man is playing a guitar.']
+model.build_index(sentences)
+results = model.search("He plays guitar.")
+```
+
+## Model List
+
+Our released models are listed as following. You can import these models by using the `promcse` package.
+
+|          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
+|:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|  [YuxinJiang/unsup-promcse-bert-base-uncased](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
+|  [YuxinJiang/sup-promcse-roberta-base](https://huggingface.co/YuxinJiang/sup-promcse-roberta-base)  |  76.75 |85.86| 80.98| 86.51 |83.51| 86.58| 80.41| 82.94|
+|  [YuxinJiang/sup-promcse-roberta-large](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
+
+**Naming rules**: `unsup` and `sup` represent "unsupervised" (trained on Wikipedia corpus) and "supervised" (trained on NLI datasets) respectively.
+
+
+
+## Train PromCSE
+
+In the following section, we describe how to train a PromCSE model by using our code.
+
+### Setups
 
 [![Python](https://img.shields.io/badge/python-3.8.2-blue?logo=python&logoColor=FED643)](https://www.python.org/downloads/release/python-382/)
 [![Pytorch](https://img.shields.io/badge/pytorch-1.7.1-red?logo=pytorch)](https://pytorch.org/get-started/previous-versions/)
@@ -48,11 +97,6 @@ Run the following script to install the remaining dependencies,
 ```bash
 pip install -r requirements.txt
 ```
-
-## Train PromCSE
-
-In the following section, we describe how to train a PromCSE model by using our code.
-
 
 ### Evaluation
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)
@@ -181,84 +225,6 @@ All our experiments are conducted on Nvidia 3090 GPUs.
 | Valid steps | 125 | 125 | 125 | 125 |
 
 
-## Usage
-We provide [tool.py](https://github.com/YJiangcm/PromCSE/blob/master/tool.py) which contains the following functions (A quick start [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)):  
-
-**(1) encode sentences into embedding vectors;  
-(2) compute cosine simiarities between sentences;  
-(3) given queries, retrieval top-k semantically similar sentences for each query.**  
-
-You can have a try by runing
-```bash
-python tool.py \
-    --model_name_or_path YuxinJiang/unsup-promcse-bert-base-uncased \
-    --pooler_type cls_before_pooler \
-    --pre_seq_len 16
-```
-
-which is expected to output the following results.
-```
-=========Calculate cosine similarities between queries and sentences============
-
-100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.18it/s]100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 42.26it/s][[0.5904227  0.70516586 0.65185255 0.82756    0.6969594  0.85966974
-  0.58715546 0.8467339  0.6583321  0.6792214 ]
- [0.6125869  0.73508096 0.61479807 0.6182762  0.6161849  0.59476817
-  0.595963   0.61386335 0.694822   0.938746  ]]
-
-=========Naive brute force search============
-
-2022-10-09 11:59:06,004 : Encoding embeddings for sentences...
-100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 46.03it/s]2022-10-09 11:59:06,029 : Building index...
-2022-10-09 11:59:06,029 : Finished
-100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 95.40it/s]100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 115.25it/s]Retrieval results for query: A man is playing music.
-    A man plays the piano.  (cosine similarity: 0.8597)
-    A man plays a guitar.  (cosine similarity: 0.8467)
-    A man plays the violin.  (cosine similarity: 0.8276)
-    A woman is reading.  (cosine similarity: 0.7051)
-    A man is eating food.  (cosine similarity: 0.6969)
-    A woman is taking a picture.  (cosine similarity: 0.6792)
-    A woman is slicing a meat.  (cosine similarity: 0.6583)
-    A man is lifting weights in a garage.  (cosine similarity: 0.6518)
-
-Retrieval results for query: A woman is making a photo.
-    A woman is taking a picture.  (cosine similarity: 0.9387)
-    A woman is reading.  (cosine similarity: 0.7351)
-    A woman is slicing a meat.  (cosine similarity: 0.6948)
-    A man plays the violin.  (cosine similarity: 0.6183)
-    A man is eating food.  (cosine similarity: 0.6162)
-    A man is lifting weights in a garage.  (cosine similarity: 0.6148)
-    A man plays a guitar.  (cosine similarity: 0.6139)
-    An animal is biting a persons finger.  (cosine similarity: 0.6126)
-
-
-=========Search with Faiss backend============
-
-2022-10-09 11:59:06,055 : Loading faiss with AVX2 support.
-2022-10-09 11:59:06,092 : Successfully loaded faiss with AVX2 support.
-2022-10-09 11:59:06,093 : Encoding embeddings for sentences...
-100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  4.17it/s]2022-10-09 11:59:06,335 : Building index...
-2022-10-09 11:59:06,335 : Use GPU-version faiss
-2022-10-09 11:59:06,447 : Finished
-100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 101.44it/s]Retrieval results for query: A man is playing music.
-    A man plays the piano.  (cosine similarity: 0.8597)
-    A man plays a guitar.  (cosine similarity: 0.8467)
-    A man plays the violin.  (cosine similarity: 0.8276)
-    A woman is reading.  (cosine similarity: 0.7052)
-    A man is eating food.  (cosine similarity: 0.6970)
-    A woman is taking a picture.  (cosine similarity: 0.6792)
-    A woman is slicing a meat.  (cosine similarity: 0.6583)
-    A man is lifting weights in a garage.  (cosine similarity: 0.6519)
-
-Retrieval results for query: A woman is making a photo.
-    A woman is taking a picture.  (cosine similarity: 0.9387)
-    A woman is reading.  (cosine similarity: 0.7351)
-    A woman is slicing a meat.  (cosine similarity: 0.6948)
-    A man plays the violin.  (cosine similarity: 0.6183)
-    A man is eating food.  (cosine similarity: 0.6162)
-    A man is lifting weights in a garage.  (cosine similarity: 0.6148)
-    A man plays a guitar.  (cosine similarity: 0.6139)
-    An animal is biting a persons finger.  (cosine similarity: 0.6126)
-```
 
 
 ## Citation
