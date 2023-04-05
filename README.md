@@ -74,7 +74,7 @@ We provide an easy-to-use python package `promcse` which contains the following 
 (2) compute cosine simiarities between sentences;  
 (3) given queries, retrieval top-k semantically similar sentences for each query.**  
 
-To use the tool, first install the `promcse` package from PyPI
+To use the tool, first install the `promcse` package from [PyPI](https://pypi.org/project/promcse/)
 ```bash
 pip install promcse
 ```
