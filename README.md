@@ -6,7 +6,23 @@
 arXiv link: https://arxiv.org/abs/2203.06875v2  
 Published in [**EMNLP 2022**](https://2022.emnlp.org/)
 
+## Quick Links
+  - [Overview](#overview)
+  - [Model List](#model-list)
+  - [Getting Started](#getting-started)
+  - [Train PromCSE](#train-promcse)
+    - [Setups](#setups)
+    - [Evaluation](#evaluation)
+    - [Training](#training)
+  - [Citation](#citation)
+
+## Overview
+
 Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works. Our models acquires comparable results to [PromptBERT](https://github.com/kongds/Prompt-BERT) **without designing discrete prompts manually**.
+
+
+
+## Model List
 
 We have released our supervised and unsupervised models on huggingface, which acquire **Top 1** results on 1 domain-shifted STS task and 4 standard STS tasks:
 
@@ -27,8 +43,15 @@ We have released our supervised and unsupervised models on huggingface, which ac
 <!-- <img src="https://github.com/YJiangcm/DCPCSE/blob/master/figure/leaderboard.png" width="700" height="380"> -->
 
 
-[//]: <## Architecture>
-[//]: <We add multi-layer trainable dense vectors as soft prompts to the input sequence, which means the input embeddings as well as each layer's hidden embeddings of prompts are optimized (the orange blocks). Note that all parameters of the pre-trained model are frozen (the blue blocks), thus reducing the number of tunable parameters to around **0.1\%**. The [CLS] token embedding of the last layer is selected as the sentence representation. The contrastive framework is the same as SimCSE.>
+|          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
+|:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|  [YuxinJiang/unsup-promcse-bert-base-uncased](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
+|  [YuxinJiang/sup-promcse-roberta-base](https://huggingface.co/YuxinJiang/sup-promcse-roberta-base)  |  76.75 |85.86| 80.98| 86.51 |83.51| 86.58| 80.41| 82.94|
+|  [YuxinJiang/sup-promcse-roberta-large](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
+
+**Naming rules**: `unsup` and `sup` represent "unsupervised" (trained on Wikipedia corpus) and "supervised" (trained on NLI datasets) respectively.
+
+
 
 ## Getting Started
 
@@ -68,18 +91,6 @@ sentences = ['A woman is reading.', 'A man is playing a guitar.']
 model.build_index(sentences)
 results = model.search("He plays guitar.")
 ```
-
-## Model List
-
-Our released models are listed as following. You can import these models by using the `promcse` package.
-
-|          Model          | STS12 | STS13 | STS14 | STS15 | STS16 | STS-B | SICK-R | Avg. |
-|:-----------------------:|:-----:|:----------:|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|  [YuxinJiang/unsup-promcse-bert-base-uncased](https://huggingface.co/YuxinJiang/unsup-promcse-bert-base-uncased)  |  73.03 |85.18| 76.70| 84.19 |79.69| 80.62| 70.00| 78.49|
-|  [YuxinJiang/sup-promcse-roberta-base](https://huggingface.co/YuxinJiang/sup-promcse-roberta-base)  |  76.75 |85.86| 80.98| 86.51 |83.51| 86.58| 80.41| 82.94|
-|  [YuxinJiang/sup-promcse-roberta-large](https://huggingface.co/YuxinJiang/sup-promcse-roberta-large)  |  79.14 |88.64| 83.73| 87.33 |84.57| 87.84| 82.07| 84.76|
-
-**Naming rules**: `unsup` and `sup` represent "unsupervised" (trained on Wikipedia corpus) and "supervised" (trained on NLI datasets) respectively.
 
 
 
