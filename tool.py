@@ -47,31 +47,38 @@ class PromCSE(object):
     """
     A class for embedding sentences, calculating similarities, and retriving sentences by SimCSE.
     """
-    def __init__(self, args, 
+    def __init__(self,
+                 model_name_or_path: str,
+                 pooler_type: str,
+                 pre_seq_len: int,
                  device: str = None,
                  num_cells: int = 100,
                  num_cells_in_search: int = 10):
-        self.tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
         
-        if 'roberta' in args.model_name_or_path:
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+        self.model_args = Namespace(model_name_or_path,
+                              pooler_type,
+                              pre_seq_len)
+        
+        if 'roberta' in model_name_or_path:
             self.model = RobertaForCL.from_pretrained(
-                    args.model_name_or_path,
-                    from_tf=bool(".ckpt" in args.model_name_or_path),
-                    config=AutoConfig.from_pretrained(args.model_name_or_path),
-                    cache_dir=args.cache_dir,
+                    model_name_or_path,
+                    from_tf=bool(".ckpt" in model_name_or_path),
+                    config=AutoConfig.from_pretrained(model_name_or_path),
+                    cache_dir=self.model_args.cache_dir,
                     revision="main",
-                    use_auth_token=True if args.use_auth_token else None,
-                    model_args=args
+                    use_auth_token=True if self.model_args.use_auth_token else None,
+                    model_args=self.model_args
                 )
-        elif 'bert' in args.model_name_or_path:
+        elif 'bert' in model_name_or_path:
             self.model = BertForCL.from_pretrained(
-                    args.model_name_or_path,
-                    from_tf=bool(".ckpt" in args.model_name_or_path),
-                    config=AutoConfig.from_pretrained(args.model_name_or_path),
-                    cache_dir=args.cache_dir,
+                    model_name_or_path,
+                    from_tf=bool(".ckpt" in model_name_or_path),
+                    config=AutoConfig.from_pretrained(model_name_or_path),
+                    cache_dir=self.model_args.cache_dir,
                     revision="main",
-                    use_auth_token=True if args.use_auth_token else None,
-                    model_args=args
+                    use_auth_token=True if self.model_args.use_auth_token else None,
+                    model_args=self.model_args
                 )
         
         if device is None:
@@ -295,9 +302,6 @@ if __name__ == "__main__":
     ############################# only need to provide the above 3 arguments #################################
     
     args = parser.parse_args()
-    args = Namespace(args.model_name_or_path,
-                     args.pooler_type,
-                     args.pre_seq_len)
 
     example_sentences = [
         'An animal is biting a persons finger.',
@@ -316,7 +320,9 @@ if __name__ == "__main__":
         'A woman is making a photo.'
     ]
 
-    model = PromCSE(args)
+    model = PromCSE(args.model_name_or_path,
+                     args.pooler_type,
+                     args.pre_seq_len)
 
     print("\n=========Calculate cosine similarities between queries and sentences============\n")
     similarities = model.similarity(example_queries, example_sentences)
