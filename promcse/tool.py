@@ -1,16 +1,15 @@
 import logging
 import argparse
 import torch
+import numpy as np
 from transformers import AutoConfig, AutoTokenizer
-from promcse.models import BertForCL, RobertaForCL
+from models import BertForCL, RobertaForCL
 from tqdm import tqdm
 from numpy import ndarray
 from typing import List, Tuple, Union
 from torch import Tensor
 from sklearn.metrics.pairwise import cosine_similarity
 
-import numpy as np
-import torch
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s')
