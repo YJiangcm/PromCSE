@@ -3,12 +3,12 @@ import argparse
 import torch
 import numpy as np
 from transformers import AutoConfig, AutoTokenizer
-from models import BertForCL, RobertaForCL
 from tqdm import tqdm
 from numpy import ndarray
 from typing import List, Tuple, Union
 from torch import Tensor
 from sklearn.metrics.pairwise import cosine_similarity
+from .models import BertForCL, RobertaForCL
 
 
 # Set up logger
