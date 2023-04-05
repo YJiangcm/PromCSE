@@ -1,5 +1,5 @@
 # PromCSE: Improved Universal Sentence Embeddings with Prompt-based Contrastive Learning and Energy-based Learning
-[![Version](https://img.shields.io/badge/Version-0.0.2-blueviolet)](https://img.shields.io/badge/Version-0.0.2-blueviolet)
+[![Version](https://img.shields.io/badge/Version-0.0.2-blueviolet)](https://pypi.org/project/promcse/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)
 [![huggingface](https://img.shields.io/badge/%F0%9F%A4%97-huggingface-yellow)](https://huggingface.co/YuxinJiang)
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT)
