@@ -20,7 +20,7 @@ Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) 
 ## Quick Links
   - [Overview](#overview)
   - [Model List](#model-list)
-  - [Getting Started](#getting-started)
+  - [Usage](#usage)
   - [Train PromCSE](#train-promcse)
     - [Setups](#setups)
     - [Evaluation](#evaluation)
@@ -65,7 +65,7 @@ We have released our supervised and unsupervised models on huggingface, which ac
 
 
 
-## Getting Started
+## Usage
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing)
 
 We provide an easy-to-use python package `promcse` which contains the following functions:  
