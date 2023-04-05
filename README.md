@@ -6,6 +6,10 @@
 arXiv link: https://arxiv.org/abs/2203.06875v2  
 Published in [**EMNLP 2022**](https://2022.emnlp.org/)
 
+Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works. Our models acquires comparable results to [PromptBERT](https://github.com/kongds/Prompt-BERT) **without designing discrete prompts manually**.
+
+
+
 ## Quick Links
   - [Overview](#overview)
   - [Model List](#model-list)
@@ -16,9 +20,10 @@ Published in [**EMNLP 2022**](https://2022.emnlp.org/)
     - [Training](#training)
   - [Citation](#citation)
 
-## Overview
 
-Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works. Our models acquires comparable results to [PromptBERT](https://github.com/kongds/Prompt-BERT) **without designing discrete prompts manually**.
+
+## Overview
+<img src="https://github.com/YJiangcm/PromCSE/blob/master/figure/overview.jpg" width="700" height="320">
 
 
 
