@@ -6,7 +6,7 @@
 Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) and [P-tuning v2](https://github.com/THUDM/P-tuning-v2/). Here we would like to sincerely thank them for their excellent works. 
 
 **************************** **Updates** ****************************
-* 2023/4/5: We released our [sentence embedding python package](#getting-started).
+* 2023/4/5: We released our sentence embedding [python package](#getting-started).
 * 2022/3/3: We released a simple [colab notebook](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing) for a quick start!
 * 2022/1/8: We released our model checkpoints on [huggingface](https://huggingface.co/YuxinJiang).
 * 2022/10/9: We released the second verson of [our paper](https://arxiv.org/pdf/2203.06875v2.pdf). Check it out!
