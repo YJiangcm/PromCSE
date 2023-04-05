@@ -8,7 +8,7 @@ from numpy import ndarray
 from typing import List, Tuple, Union
 from torch import Tensor
 from sklearn.metrics.pairwise import cosine_similarity
-from models import BertForCL, RobertaForCL
+from promcse.models import BertForCL, RobertaForCL
 
 
 # Set up logger
