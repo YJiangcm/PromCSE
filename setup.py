@@ -16,12 +16,14 @@ setup(
     download_url='https://github.com/YJiangcm/PromCSE/archive/refs/tags/0.0.1.tar.gz',
     keywords=['sentence', 'embedding', 'promcse', 'nlp', 'prompt'],
     install_requires=[
-        "tqdm",
-        "scikit-learn",
-        "scipy>=1.5.4,<1.6",
         "transformers",
+        "scipy",
+        "datasets",
+        "pandas",
+        "scikit-learn",
+        "prettytable",
+        "gradio",
         "torch",
-        "numpy>=1.19.5,<1.20",
         "setuptools"
     ]
 )
