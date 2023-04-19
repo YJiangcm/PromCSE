@@ -11,9 +11,9 @@ Our code is modified based on [SimCSE](https://github.com/princeton-nlp/SimCSE) 
 * 2023/04/05: We released our sentence embedding [python package](#getting-started).
 * 2023/03/03: We released a simple [colab notebook](https://colab.research.google.com/drive/1lanXViJzbmGM1bwm8AflNUKmrvDidg_3?usp=sharing) for a quick start!
 * 2023/01/08: We released our model checkpoints on [huggingface](https://huggingface.co/YuxinJiang).
-* 2022/10/09: We released the second verson of [our paper](https://arxiv.org/pdf/2203.06875v2.pdf). Check it out!
+* 2022/10/09: We released the second verson of our [paper](https://arxiv.org/pdf/2203.06875v2.pdf). Check it out!
 * 2022/10/06: Our paper has been accepted to [**EMNLP 2022**](https://2022.emnlp.org/). 
-* 2022/03/14: We released the first verson of [our paper](https://arxiv.org/pdf/2203.06875v1.pdf). Check it out!
+* 2022/03/14: We released the first verson of our [paper](https://arxiv.org/pdf/2203.06875v1.pdf). Check it out!
 
 
 
