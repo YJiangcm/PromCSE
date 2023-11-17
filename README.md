@@ -117,7 +117,7 @@ In the following section, we describe how to train a PromCSE model by using our 
 [![Python](https://img.shields.io/badge/python-3.8.2-blue?logo=python&logoColor=FED643)](https://www.python.org/downloads/release/python-382/)
 [![Pytorch](https://img.shields.io/badge/pytorch-1.7.1-red?logo=pytorch)](https://pytorch.org/get-started/previous-versions/)
 
-Run the following script to install the remaining dependencies,
+**You should install the correct version of PyTorch that supports CUDA.** Then run the following script to install the remaining dependencies,
 
 ```bash
 pip install -r requirements.txt
