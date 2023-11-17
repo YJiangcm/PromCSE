@@ -270,4 +270,20 @@ Please cite our paper by:
     url = "https://aclanthology.org/2022.findings-emnlp.220",
     pages = "3021--3035",
 }
+
+@article{DBLP:journals/corr/abs-2203-06875,
+  author       = {Yuxin Jiang and
+                  Wei Wang},
+  title        = {Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings},
+  journal      = {CoRR},
+  volume       = {abs/2203.06875},
+  year         = {2022},
+  url          = {https://doi.org/10.48550/arXiv.2203.06875},
+  doi          = {10.48550/ARXIV.2203.06875},
+  eprinttype    = {arXiv},
+  eprint       = {2203.06875},
+  timestamp    = {Wed, 16 Mar 2022 16:41:29 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2203-06875.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
 ```
